@@ -1,0 +1,24 @@
+[tool.pdm]
+
+[tool.pdm.scripts]
+dev = "uvicorn simple_bbs.main:app --reload"
+start = "uvicorn simple_bbs.main:app"
+
+[project]
+name = ""
+version = ""
+description = ""
+authors = [{ name = "lnkkerst", email = "lnkkerst04@gmail.com" }]
+dependencies = [
+    "fastapi>=0.92.0",
+    "uvicorn[standard]>=0.20.0",
+    "sqlalchemy>=2.0.4",
+    "pycrypto>=2.6.1",
+    "python-jose[cryptography]>=3.3.0",
+    "pyca>=4.4",
+    "fastapi-jwt-auth>=0.5.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.6",
+]
+requires-python = ">=3.10"
+license = { text = "MIT" }
