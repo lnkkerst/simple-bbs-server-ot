@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -52,6 +53,7 @@ class Post(PostBase):
     id: str
     author_id: str
     author: User
+    publish_at: int
 
     class Config:
         orm_mode = True
@@ -85,12 +87,14 @@ class Comment(CommentBase):
         author_id: 评论作者的 ID
         author: 评论作者信息
         post_id: 所属帖子 ID
+        publish_at
     """
 
     id: str
     author_id: str
     author: User
     post_id: str
+    publish_at: int
 
     class Config:
         orm_mode = True

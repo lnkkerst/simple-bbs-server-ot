@@ -1,4 +1,5 @@
-from sqlalchemy import Column, ForeignKey, String
+import time
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from .database import Base
 import uuid
@@ -23,6 +24,7 @@ class Post(Base):
     content = Column(String)
     author_id = Column(String, ForeignKey("users.id"))
     author = relationship("User", back_populates="posts")
+    publish_at = Column(Integer, default=lambda: int(time.time()))
 
 
 class Comment(Base):
@@ -33,3 +35,4 @@ class Comment(Base):
     author_id = Column(String, ForeignKey("users.id"))
     post_id = Column(String, ForeignKey("posts.id"))
     author = relationship("User", back_populates="comments")
+    publish_at = Column(Integer, default=lambda: int(time.time()))

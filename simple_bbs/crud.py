@@ -50,6 +50,7 @@ def get_posts_by_author(
     return (
         db.query(models.Post)
         .filter(models.Post.author_id == post_author_id)
+        .order_by(-models.Post.publish_at)
         .offset(skip)
         .limit(limit)
         .all()
@@ -60,7 +61,7 @@ def get_posts(db: Session, author_id=None, skip: int = 0, limit: int = 20):
     query = db.query(models.Post)
     if author_id:
         query = query.filter(models.Post.author_id == author_id)
-    return query.offset(skip).limit(limit).all()
+    return query.order_by(-models.Post.publish_at).offset(skip).limit(limit).all()
 
 
 def create_post(db: Session, user_id: str, post: schemas.PostCreate):
@@ -83,13 +84,14 @@ def get_comments(
         query = query.filter(models.Comment.author_id == author_id)
     if post_id:
         query = query.filter(models.Comment.post_id == post_id)
-    return query.offset(skip).limit(limit).all()
+    return query.order_by(-models.Comment.publish_at).offset(skip).limit(limit).all()
 
 
 def get_comments_by_post_id(db: Session, post_id: str, skip: int = 0, limit: int = 20):
     return (
         db.query(models.Comment)
         .filter(models.Comment.post_id == post_id)
+        .order_by(-models.Comment.publish_at)
         .offset(skip)
         .limit(limit)
         .all()
@@ -102,6 +104,7 @@ def get_comments_by_author_id(
     return (
         db.query(models.Comment)
         .filter(models.Comment.author_id == author_id)
+        .order_by(-models.Comment.publish_at)
         .offset(skip)
         .limit(limit)
         .all()
